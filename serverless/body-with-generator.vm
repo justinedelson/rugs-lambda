@@ -1,0 +1,6 @@
+#set( $body = $input.json("$") )
+
+{
+"generatorName" : "$util.escapeJavaScript($input.params('generatorName'))",
+"params" : $body
+}

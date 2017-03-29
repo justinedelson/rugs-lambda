@@ -50,13 +50,65 @@ package:
   artifact: target/aem-rugs-lambda.jar
 
 functions:
-  parameters:
-    handler: com.adobe.people.jedelson.aemrugslambda.ParametersHandler
+  generators:
+    handler: com.adobe.people.jedelson.aemrugslambda.GeneratorsHandler
+    timeout: 20
     events:
-        - http:
-            integration: lambda
-            path: parameters
-            method: get
+      - http:
+          path: generators
+          method: get
+          integration: lambda
+          cors: true
+
+  validate:
+    handler: com.adobe.people.jedelson.aemrugslambda.ValidateHandler
+    timeout: 20
+    events:
+      - http:
+          path: "{generatorName}/validate"
+          method: post
+          integration: lambda
+          cors: true
+          request:
+             parameters:
+                paths:
+                  generatorName: true
+             template:
+                application/json: ${file(serverless/body-with-generator.vm)}
+          response:
+             statusCodes:
+                404:
+                   pattern: '.*NoSuchGeneratorException.*'
+                   template: ${file(serverless/error-cause.vm)}
+                500:
+                   pattern: '.*Exception.*'
+                   template: ${file(serverless/error-cause.vm)}
+
+#  parameters:
+#    handler: com.adobe.people.jedelson.aemrugslambda.ParametersHandler
+#    timeout: 20
+#    events:
+#      - http:
+#          path: "{generatorName}/parameters"
+#          method: get
+#          integration: lambda
+#          cors: true
+#          request:
+#             parameters:
+#                paths:
+#                  generatorName: true
+#             template:
+#                application/json: ${file(serverless/generatorName.vm)}
+#          response:
+#             statusCodes:
+#                404:
+#                   pattern: '.*NoSuchGeneratorException.*'
+#                   template: ${file(serverless/error-cause.vm)}
+#  parameters:
+#    handler: com.adobe.people.jedelson.aemrugslambda.ParametersHandler
+#    timeout: 20
+
+
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

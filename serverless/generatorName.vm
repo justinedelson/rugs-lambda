@@ -1,0 +1,3 @@
+{
+"generatorName" : "$util.escapeJavaScript($input.params('generatorName'))"
+}

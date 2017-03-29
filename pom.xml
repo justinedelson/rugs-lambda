@@ -15,6 +15,54 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.atomist</groupId>
+      <artifactId>rug</artifactId>
+      <version>0.18.2</version>
+      <exclusions>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-access</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.atomist</groupId>
+      <artifactId>rug-resolver</artifactId>
+      <version>0.17.0</version>
+        <exclusions>
+            <exclusion>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-access</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+            </exclusion>
+            <exclusion>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.23</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.5</version>
+    </dependency>
+    <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-lambda-java-core</artifactId>
       <version>1.1.0</version>
@@ -27,17 +75,17 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.8.5</version>
+      <version>2.8.7</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.8.5</version>
+      <version>2.8.7</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-annotations</artifactId>
-      <version>2.8.5</version>
+      <version>2.8.7</version>
     </dependency>
   </dependencies>
 
@@ -66,6 +114,18 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <filters>
+                  <filter>
+                    <artifact>*:*</artifact>
+                    <excludes>
+                        <exclude>org/apache/log4j/jdbc/*.class</exclude>
+                        <exclude>org/apache/log4j/jmx/*.class</exclude>
+                        <exclude>org/apache/log4j/chainsaw/**/*.*</exclude>
+                        <exclude>org/apache/log4j/lf5/**/*.*</exclude>
+                        <exclude>org/apache/log4j/net/**/*.class</exclude>
+                    </excludes>
+                  </filter>
+              </filters>
               <!-- remove version from package name -->
               <finalName>${project.artifactId}</finalName>
             </configuration>
@@ -74,5 +134,10 @@
       </plugin>
     </plugins>
   </build>
-
+  <repositories>
+    <repository>
+      <id>atomist-lib-releases</id>
+      <url>https://atomist.jfrog.io/atomist/libs-release</url>
+    </repository>
+  </repositories>
 </project>
