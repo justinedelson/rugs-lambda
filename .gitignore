@@ -6,6 +6,7 @@ target
 .classpath
 .idea/
 *.iml
+config.yml
 
 # Package Files
 *.jar

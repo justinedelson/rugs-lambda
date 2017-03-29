@@ -13,14 +13,7 @@ provider:
     RUG_ARTIFACT_ID: ${self:custom.rugArtifactId}
     RUG_VERSION: ${self:custom.rugVersion}
 
-custom:
-  accountId: 233597854772
-  outputBucketName: com-adobe-people-jedelson-aem-rugs-output
-  inputBucketName: com-adobe-people-jedelson-aem-rugs-input
-  rugObjectKey: "aem-rugs-0.2.2.zip"
-  rugGroupId: "aem-rugs"
-  rugArtifactId: "aem-rugs"
-  rugVersion: "0.2.2"
+custom: ${file(config.yml)}
 
 package:
   artifact: target/rugs-in-lambda.jar
