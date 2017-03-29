@@ -1,12 +1,8 @@
 package com.adobe.people.jedelson.aemrugslambda;
 
-import com.adobe.people.jedelson.aemrugslambda.dto.GeneratorDTO;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.atomist.param.ParameterValues;
 import com.atomist.project.archive.Rugs;
-
-import java.util.List;
 
 /**
  * Created by jedelson on 3/28/17.

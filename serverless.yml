@@ -50,12 +50,12 @@ package:
   artifact: target/aem-rugs-lambda.jar
 
 functions:
-  generators:
-    handler: com.adobe.people.jedelson.aemrugslambda.GeneratorsHandler
+  rugs:
+    handler: com.adobe.people.jedelson.aemrugslambda.RugsHandler
     timeout: 20
     events:
       - http:
-          path: generators
+          path: rugs
           method: get
           integration: lambda
           cors: true

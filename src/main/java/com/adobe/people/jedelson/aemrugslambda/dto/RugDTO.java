@@ -1,21 +1,21 @@
 package com.adobe.people.jedelson.aemrugslambda.dto;
 
-import com.atomist.project.generate.ProjectGenerator;
+import com.atomist.rug.runtime.ParameterizedRug;
 import scala.collection.JavaConversions;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GeneratorDTO {
+public class RugDTO {
 
     private final String name;
     private final String description;
     private final List<ParameterDTO> parameters;
 
-    public GeneratorDTO(ProjectGenerator generator) {
-        this.name = generator.name();
-        this.description = generator.description();
-        parameters = JavaConversions.asJavaCollection(generator.parameters()).stream().map(p -> {
+    public RugDTO(ParameterizedRug rug) {
+        this.name = rug.name();
+        this.description = rug.description();
+        parameters = JavaConversions.asJavaCollection(rug.parameters()).stream().map(p -> {
             return new ParameterDTO(p);
         }).collect(Collectors.toList());
     }
