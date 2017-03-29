@@ -1,6 +1,7 @@
 package com.adobe.people.jedelson.aemrugslambda;
 
 import com.adobe.people.jedelson.aemrugslambda.dto.GenerationRequestDTO;
+import com.adobe.people.jedelson.aemrugslambda.helpers.RugWrapper;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.atomist.project.archive.Rugs;

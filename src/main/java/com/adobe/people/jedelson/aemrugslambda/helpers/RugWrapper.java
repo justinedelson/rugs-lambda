@@ -1,10 +1,6 @@
-package com.adobe.people.jedelson.aemrugslambda;
+package com.adobe.people.jedelson.aemrugslambda.helpers;
 
-import com.atomist.param.ParameterValue;
-import com.atomist.param.SimpleParameterValue;
-import com.atomist.param.SimpleParameterValues;
 import com.atomist.project.archive.Rugs;
-import com.atomist.project.generate.ProjectGenerator;
 import com.atomist.rug.resolver.ArtifactDescriptor;
 import com.atomist.rug.resolver.DefaultArtifactDescriptor;
 import com.atomist.rug.resolver.DependencyResolver;
@@ -22,14 +18,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
-
-import static scala.collection.JavaConversions.asJavaCollection;
-import static scala.collection.JavaConversions.asScalaBuffer;
 
 
 public class RugWrapper {
@@ -62,7 +50,7 @@ public class RugWrapper {
         return archive;
     }
 
-    Rugs getRugs() throws Exception {
+    public Rugs getRugs() throws Exception {
         URI uri = archive.toURI();
         ArtifactDescriptor artifact = new DefaultArtifactDescriptor(groupId, artifactId, version, ArtifactDescriptor.Extension.ZIP, ArtifactDescriptor.Scope.COMPILE, uri);
         ArtifactSource source = ZipFileArtifactSourceReader.fromZipSource(new ZipFileInput(new FileInputStream(archive)));
@@ -75,7 +63,7 @@ public class RugWrapper {
         return rugs;
     }
 
-    void cleanup() {
+    public void cleanup() {
         FileUtils.deleteQuietly(tmpRoot);
     }
 }

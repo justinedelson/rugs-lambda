@@ -84,6 +84,29 @@ functions:
                    pattern: '.*Exception.*'
                    template: ${file(serverless/error-cause.vm)}
 
+  generate:
+    handler: com.adobe.people.jedelson.aemrugslambda.GenerateHandler
+    timeout: 90
+    events:
+      - http:
+          path: "{generatorName}/generate"
+          method: post
+          integration: lambda
+          cors: true
+          request:
+             parameters:
+                paths:
+                  generatorName: true
+             template:
+                application/json: ${file(serverless/body-with-generator.vm)}
+          response:
+             statusCodes:
+                404:
+                   pattern: '.*NoSuchGeneratorException.*'
+                   template: ${file(serverless/error-cause.vm)}
+                500:
+                   pattern: '.*Exception.*'
+                   template: ${file(serverless/error-cause.vm)}
 #  parameters:
 #    handler: com.adobe.people.jedelson.aemrugslambda.ParametersHandler
 #    timeout: 20
