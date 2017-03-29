@@ -1,4 +1,4 @@
-package com.adobe.people.jedelson.aemrugslambda.dto;
+package com.adobe.people.jedelson.rugsinlambda.dto;
 
 import com.atomist.rug.runtime.ParameterizedRug;
 import scala.collection.JavaConversions;

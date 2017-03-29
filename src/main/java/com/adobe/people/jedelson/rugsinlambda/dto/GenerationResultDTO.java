@@ -1,4 +1,4 @@
-package com.adobe.people.jedelson.aemrugslambda.dto;
+package com.adobe.people.jedelson.rugsinlambda.dto;
 
 public class GenerationResultDTO extends ValidationResultDTO {
 

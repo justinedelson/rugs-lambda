@@ -47,7 +47,7 @@ package:
 
 functions:
   rugs:
-    handler: com.adobe.people.jedelson.aemrugslambda.RugsHandler
+    handler: com.adobe.people.jedelson.rugsinlambda.RugsHandler
     timeout: 20
     events:
       - http:
@@ -57,7 +57,7 @@ functions:
           cors: true
 
   validate:
-    handler: com.adobe.people.jedelson.aemrugslambda.ValidateHandler
+    handler: com.adobe.people.jedelson.rugsinlambda.ValidateHandler
     timeout: 20
     events:
       - http:
@@ -81,7 +81,7 @@ functions:
                    template: ${file(serverless/error-cause.vm)}
 
   generate:
-    handler: com.adobe.people.jedelson.aemrugslambda.GenerateHandler
+    handler: com.adobe.people.jedelson.rugsinlambda.GenerateHandler
     timeout: 90
     role: generateFunctionRole
     environment:

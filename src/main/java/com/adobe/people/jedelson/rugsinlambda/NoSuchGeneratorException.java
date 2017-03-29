@@ -1,8 +1,5 @@
-package com.adobe.people.jedelson.aemrugslambda;
+package com.adobe.people.jedelson.rugsinlambda;
 
-/**
- * Created by jedelson on 3/28/17.
- */
 public class NoSuchGeneratorException extends RuntimeException {
 
     private final String generatorName;

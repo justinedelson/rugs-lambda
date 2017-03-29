@@ -1,13 +1,10 @@
-package com.adobe.people.jedelson.aemrugslambda.dto;
+package com.adobe.people.jedelson.rugsinlambda.dto;
 
-import com.atomist.param.ParameterValue;
 import com.atomist.param.ParameterValues;
 import com.atomist.param.SimpleParameterValue;
 import com.atomist.param.SimpleParameterValues;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 

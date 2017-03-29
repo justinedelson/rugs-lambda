@@ -1,10 +1,8 @@
-package com.adobe.people.jedelson.aemrugslambda;
+package com.adobe.people.jedelson.rugsinlambda;
 
-import com.adobe.people.jedelson.aemrugslambda.dto.RugDTO;
-import com.adobe.people.jedelson.aemrugslambda.dto.RugsDTO;
+import com.adobe.people.jedelson.rugsinlambda.dto.RugsDTO;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.atomist.project.archive.Rugs;
-import scala.collection.JavaConversions;
 
 
 import static scala.collection.JavaConversions.asJavaCollection;

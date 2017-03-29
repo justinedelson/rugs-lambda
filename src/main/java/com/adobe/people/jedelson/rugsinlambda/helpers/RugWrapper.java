@@ -1,4 +1,4 @@
-package com.adobe.people.jedelson.aemrugslambda.helpers;
+package com.adobe.people.jedelson.rugsinlambda.helpers;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.S3Object;

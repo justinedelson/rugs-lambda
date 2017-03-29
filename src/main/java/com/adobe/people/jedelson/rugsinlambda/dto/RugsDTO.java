@@ -1,6 +1,5 @@
-package com.adobe.people.jedelson.aemrugslambda.dto;
+package com.adobe.people.jedelson.rugsinlambda.dto;
 
-import com.atomist.project.generate.ProjectGenerator;
 import com.atomist.rug.runtime.ParameterizedRug;
 
 import java.util.ArrayList;

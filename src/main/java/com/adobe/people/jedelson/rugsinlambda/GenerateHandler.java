@@ -1,18 +1,15 @@
-package com.adobe.people.jedelson.aemrugslambda;
+package com.adobe.people.jedelson.rugsinlambda;
 
-import com.adobe.people.jedelson.aemrugslambda.dto.GenerationRequestDTO;
-import com.adobe.people.jedelson.aemrugslambda.dto.GenerationResultDTO;
-import com.adobe.people.jedelson.aemrugslambda.dto.ValidationResultDTO;
-import com.adobe.people.jedelson.aemrugslambda.helpers.TempProjectManagement;
+import com.adobe.people.jedelson.rugsinlambda.dto.GenerationRequestDTO;
+import com.adobe.people.jedelson.rugsinlambda.dto.GenerationResultDTO;
+import com.adobe.people.jedelson.rugsinlambda.helpers.TempProjectManagement;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.atomist.param.ParameterValues;
 import com.atomist.project.archive.Rugs;
 import com.atomist.project.generate.ProjectGenerator;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

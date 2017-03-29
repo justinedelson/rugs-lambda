@@ -1,4 +1,4 @@
-package com.adobe.people.jedelson.aemrugslambda.helpers;
+package com.adobe.people.jedelson.rugsinlambda.helpers;
 
 import com.atomist.param.ParameterValues;
 import com.atomist.project.common.InvalidParametersException;

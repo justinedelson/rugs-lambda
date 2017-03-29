@@ -1,24 +1,18 @@
-package com.adobe.people.jedelson.aemrugslambda;
+package com.adobe.people.jedelson.rugsinlambda;
 
-import com.adobe.people.jedelson.aemrugslambda.dto.GenerationRequestDTO;
-import com.adobe.people.jedelson.aemrugslambda.dto.ValidationResultDTO;
+import com.adobe.people.jedelson.rugsinlambda.dto.GenerationRequestDTO;
+import com.adobe.people.jedelson.rugsinlambda.dto.ValidationResultDTO;
 import com.amazonaws.services.lambda.runtime.Context;
-import com.atomist.param.ParameterValue;
 import com.atomist.param.ParameterValues;
 import com.atomist.project.archive.Rugs;
 import com.atomist.project.generate.ProjectGenerator;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import scala.collection.Seq;
 
 import java.util.Optional;
 
 import static scala.collection.JavaConversions.asJavaCollection;
 
-/**
- * Created by jedelson on 3/28/17.
- */
 public class ValidateHandler extends AbstractRugsHandler<GenerationRequestDTO, ValidationResultDTO> {
 
     private static final Logger log = LoggerFactory.getLogger(ValidateHandler.class);
