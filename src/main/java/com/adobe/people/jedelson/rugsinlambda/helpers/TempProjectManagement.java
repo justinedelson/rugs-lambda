@@ -24,8 +24,8 @@ public class TempProjectManagement implements ProjectManagement {
     private final File projectDirectory;
 
 
-    public TempProjectManagement() {
-        projectDirectory = new File(FileUtils.getTempDirectory(), "output/" + System.currentTimeMillis() + "/project");
+    public TempProjectManagement(String requestId) {
+        projectDirectory = new File(FileUtils.getTempDirectory(), "output/" + requestId + "/project");
         projectDirectory.mkdirs();
     }
 

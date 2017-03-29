@@ -48,7 +48,7 @@ public class GenerateHandler extends AbstractRugsHandler<GenerationRequestDTO, G
                 return result;
             } else {
                 String projectName = input.getParams().get("project_name");
-                TempProjectManagement tpm = new TempProjectManagement();
+                TempProjectManagement tpm = new TempProjectManagement(context.getAwsRequestId());
                 tpm.generate(generator, paramValues, projectName);
 
                 File zipFile = tpm.createZipFile();
