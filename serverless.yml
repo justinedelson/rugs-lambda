@@ -3,30 +3,27 @@ service: aem-rugs # NOTE: update this with your service name
 provider:
   name: aws
   runtime: java8
-  accountId: 233597854772
+  accountId: ${self:custom.accountId}
   versionFunctions: false
   role: defaultRole
   environment:
     RUG_BUCKET_NAME: ${self:custom.inputBucketName}
-    RUG_OBJECT_KEY: "aem-rugs-0.2.2.zip"
-    RUG_GROUP_ID: "aem-rugs"
-    RUG_ARTIFACT_ID: "aem-rugs"
-    RUG_VERSION: "0.2.2"
+    RUG_OBJECT_KEY: ${self:custom.rugObjectKey}
+    RUG_GROUP_ID: ${self:custom.rugGroupId}
+    RUG_ARTIFACT_ID: ${self:custom.rugArtifactId}
+    RUG_VERSION: ${self:custom.rugVersion}
 
 custom:
+  accountId: 233597854772
   outputBucketName: com-adobe-people-jedelson-aem-rugs-output
   inputBucketName: com-adobe-people-jedelson-aem-rugs-input
+  rugObjectKey: "aem-rugs-0.2.2.zip"
+  rugGroupId: "aem-rugs"
+  rugArtifactId: "aem-rugs"
+  rugVersion: "0.2.2"
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
-# you can define service wide environment variables here
-
-
-# you can add packaging information here
 package:
-  artifact: target/aem-rugs-lambda.jar
+  artifact: target/rugs-in-lambda.jar
 
 functions:
   rugs:

@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.adobe.people.jedelson</groupId>
-  <artifactId>aem-rugs-lambda</artifactId>
+  <artifactId>rugs-in-lambda</artifactId>
   <packaging>jar</packaging>
   <version>1.0.0-SNAPSHOT</version>
-  <name>AEM Rugs on Lambda</name>
+  <name>Rugs on Lambda</name>
   
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
