@@ -1,5 +1,7 @@
 package com.adobe.people.jedelson.aemrugslambda.helpers;
 
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.S3Object;
 import com.atomist.project.archive.Rugs;
 import com.atomist.rug.resolver.ArtifactDescriptor;
 import com.atomist.rug.resolver.DefaultArtifactDescriptor;
@@ -24,9 +26,12 @@ public class RugWrapper {
 
     private static final Logger log = LoggerFactory.getLogger(RugWrapper.class);
 
-    private final String groupId = "aem-rugs";
-    private final String artifactId = "aem-rugs";
-    private final String version = "0.2.2";
+    private final String rugBucketName = System.getenv("RUG_BUCKET_NAME");
+    private final String rugObjectKey = System.getenv("RUG_OBJECT_KEY");
+
+    private final String groupId = System.getenv("RUG_GROUP_ID");
+    private final String artifactId = System.getenv("RUG_ARTIFACT_ID");
+    private final String version = System.getenv("RUG_VERSION");
 
     private final File tmpRoot;
     private final File repo;
@@ -39,7 +44,11 @@ public class RugWrapper {
         File archiveFolder = new File(repo, groupId + "/" + artifactId + "/" + version);
         archiveFolder.mkdirs();
         archive = new File(archiveFolder, artifactId + "-" + version + ".zip");
-        FileUtils.copyToFile(getClass().getResourceAsStream("/aem-rugs-0.2.2.zip"), archive);
+
+        AmazonS3Client s3Client = new AmazonS3Client();
+        S3Object rugFile = s3Client.getObject(rugBucketName, rugObjectKey);
+
+        FileUtils.copyToFile(rugFile.getObjectContent(), archive);
         log.info("Saved rug zip in {}", archive);
     }
 

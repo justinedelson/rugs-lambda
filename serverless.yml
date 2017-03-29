@@ -22,33 +22,24 @@ provider:
   runtime: java8
   accountId: 233597854772
   versionFunctions: false
+  role: defaultRole
+  environment:
+    RUG_BUCKET_NAME: ${self:custom.inputBucketName}
+    RUG_OBJECT_KEY: "aem-rugs-0.2.2.zip"
+    RUG_GROUP_ID: "aem-rugs"
+    RUG_ARTIFACT_ID: "aem-rugs"
+    RUG_VERSION: "0.2.2"
 
 custom:
-  outputBucketName: com-adobe-people-jedelson-aem-rugs
+  outputBucketName: com-adobe-people-jedelson-aem-rugs-output
+  inputBucketName: com-adobe-people-jedelson-aem-rugs-input
 
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
 
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
-
 # you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+
 
 # you can add packaging information here
 package:
@@ -154,6 +145,34 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.outputBucketName}
+    defaultRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        RoleName: ${self:service}-${self:provider.stage}-${self:provider.region}-defaultLambdaRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: generatePolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: arn:aws:logs:${self:provider.region}:${self:provider.accountId}:log-group:/aws/lambda/*:*:*
+                - Effect: "Allow"
+                  Action:
+                    - "s3:GetObject"
+                  Resource: arn:aws:s3:::${self:custom.inputBucketName}/*
     generateFunctionRole:
       Type: AWS::IAM::Role
       Properties:
@@ -178,11 +197,15 @@ resources:
                     - logs:CreateLogStream
                     - logs:PutLogEvents
                   Resource: arn:aws:logs:${self:provider.region}:${self:provider.accountId}:log-group:/aws/lambda/*:*:*
-                -  Effect: "Allow"
-                   Action:
+                - Effect: "Allow"
+                  Action:
+                     - "s3:GetObject"
+                  Resource: arn:aws:s3:::${self:custom.inputBucketName}/*
+                - Effect: "Allow"
+                  Action:
                      - "s3:PutObject"
                      - "s3:GetObject"
-                   Resource:
+                  Resource:
                      Fn::Join:
                        - ""
                        - - "arn:aws:s3:::"

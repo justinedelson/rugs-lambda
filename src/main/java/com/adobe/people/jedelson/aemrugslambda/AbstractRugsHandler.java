@@ -20,7 +20,9 @@ public abstract class AbstractRugsHandler<I, O> implements RequestHandler<I, O> 
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
-            rugWrapper.cleanup();
+            if (rugWrapper != null) {
+                rugWrapper.cleanup();
+            }
         }
     }
 
