@@ -14,7 +14,7 @@ public abstract class AbstractRugsHandler<I, O> implements RequestHandler<I, O> 
     public O handleRequest(I input, Context context) {
         RugWrapper rugWrapper = null;
         try {
-            rugWrapper = new RugWrapper(context.getAwsRequestId(), "aem-rugs", "aem-rugs", "0.2.2");
+            rugWrapper = new RugWrapper(context.getAwsRequestId());
             Rugs rugs = rugWrapper.getRugs();
             return handleRequest(input, context, rugs);
         } catch (Exception e) {

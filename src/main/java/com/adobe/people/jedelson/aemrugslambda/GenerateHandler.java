@@ -27,7 +27,7 @@ import static scala.collection.JavaConversions.asJavaCollection;
 public class GenerateHandler extends AbstractRugsHandler<GenerationRequestDTO, GenerationResultDTO> {
 
     private static final Logger log = LoggerFactory.getLogger(GenerateHandler.class);
-    public static final String BUCKET_NAME = "com-adobe-people-jedelson-aem-rugs";
+    public static final String BUCKET_NAME = System.getenv("BUCKET_NAME");
 
     @Override
     protected GenerationResultDTO handleRequest(GenerationRequestDTO input, Context context, Rugs rugs) {

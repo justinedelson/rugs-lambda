@@ -24,18 +24,15 @@ public class RugWrapper {
 
     private static final Logger log = LoggerFactory.getLogger(RugWrapper.class);
 
-    private final String groupId;
-    private final String artifactId;
-    private final String version;
+    private final String groupId = "aem-rugs";
+    private final String artifactId = "aem-rugs";
+    private final String version = "0.2.2";
 
     private final File tmpRoot;
     private final File repo;
     private final File archive;
 
-    public RugWrapper(String requestId, String groupId, String artifactId, String version) throws IOException {
-        this.groupId = groupId;
-        this.artifactId = artifactId;
-        this.version = version;
+    public RugWrapper(String requestId) throws IOException {
         tmpRoot = new File(FileUtils.getTempDirectory().getAbsoluteFile(), requestId);
         tmpRoot.mkdirs();
         repo = new File(tmpRoot, "rugs");
@@ -44,10 +41,6 @@ public class RugWrapper {
         archive = new File(archiveFolder, artifactId + "-" + version + ".zip");
         FileUtils.copyToFile(getClass().getResourceAsStream("/aem-rugs-0.2.2.zip"), archive);
         log.info("Saved rug zip in {}", archive);
-    }
-
-    public File getArchive() {
-        return archive;
     }
 
     public Rugs getRugs() throws Exception {
