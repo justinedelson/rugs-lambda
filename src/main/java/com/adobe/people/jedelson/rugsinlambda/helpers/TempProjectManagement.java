@@ -41,14 +41,10 @@ public class TempProjectManagement implements ProjectManagement {
             ArtifactSource result = projectGenerator.generate(projectName, parameterValues);
             FileSystemArtifactSourceIdentifier fsid = new SimpleFileSystemArtifactSourceIdentifier(projectDirectory);
             File resultFile = new FileSystemArtifactSourceWriter().write(result, fsid, new SimpleSourceUpdateInfo(projectGenerator.name()));
-
-            System.out.print(resultFile.getAbsolutePath());
-
             return new FileSystemArtifactSource(fsid);
         } catch (InvalidParametersException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
