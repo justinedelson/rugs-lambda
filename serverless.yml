@@ -20,6 +20,8 @@ service: aem-rugs # NOTE: update this with your service name
 provider:
   name: aws
   runtime: java8
+  accountId: 233597854772
+  versionFunctions: false
 
 # you can overwrite defaults here
 #  stage: dev
@@ -87,6 +89,7 @@ functions:
   generate:
     handler: com.adobe.people.jedelson.aemrugslambda.GenerateHandler
     timeout: 90
+    role: generateFunctionRole
     events:
       - http:
           path: "{generatorName}/generate"
@@ -162,12 +165,48 @@ functions:
 #      variable2: value2
 
 # you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
+resources:
+  Resources:
+    outputBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: com-adobe-people-jedelson-aem-rugs
+    generateFunctionRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /
+        RoleName: ${self:service}-${self:provider.stage}-${self:provider.region}-generateLambdaRole1
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: generatePolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: arn:aws:logs:${self:provider.region}:${self:provider.accountId}:log-group:/aws/lambda/*:*:*
+                -  Effect: "Allow"
+                   Action:
+                     - "s3:PutObject"
+                     - "s3:GetObject"
+                   Resource:
+                     Fn::Join:
+                       - ""
+                       - - "arn:aws:s3:::"
+                         - "Ref" : "outputBucket"
+                         - "/*"
+
+
 #  Outputs:
 #     NewOutput:
 #       Description: "Description for the output"
