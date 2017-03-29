@@ -145,6 +145,8 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.outputBucketName}
+        LifecycleConfiguration:
+          Rules: [{ExpirationInDays: 1, Status: Enabled, Id: ExpireGeneratedProjects}]
     defaultRole:
       Type: AWS::IAM::Role
       Properties:
