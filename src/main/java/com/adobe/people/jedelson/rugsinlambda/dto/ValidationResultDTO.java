@@ -34,9 +34,11 @@ public class ValidationResultDTO {
         invalidParameterNames.add(p.getName());
     }
 
+    public void addInvalidParameter(String editName, ParameterValue p) {
+        invalidParameterNames.add(editName + "/" + p.getName());
+    }
+
     public void addMissingParameter(Parameter p) { missingParameterNames.add(p.getName()); }
 
-    public void addMissingParameter(String name) {
-        missingParameterNames.add(name);
-    }
+    public void addMissingParameter(String editName, Parameter p) { missingParameterNames.add(editName + "/" + p.getName()); }
 }

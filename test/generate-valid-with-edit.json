@@ -1,0 +1,16 @@
+{
+    "generatorName" : "CreateAemMultimoduleProject",
+    "params" : {
+      "group_id": "test",
+      "content_package_group": "my-packages",
+      "apps_folder_name": "myco",
+      "aem_version": "6.3",
+      "project_name": "foo"
+    },
+    "editors": [
+      {
+        "name": "AddHtlMavenPlugin"
+      }
+    ]
+}
+

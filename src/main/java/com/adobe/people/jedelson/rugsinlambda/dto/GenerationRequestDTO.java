@@ -4,7 +4,9 @@ import com.atomist.param.ParameterValues;
 import com.atomist.param.SimpleParameterValue;
 import com.atomist.param.SimpleParameterValues;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -14,15 +16,9 @@ public class GenerationRequestDTO {
 
     private String generatorName;
 
+    private List<EditRequestDTO> editors = new ArrayList<>();
+
     private Map<String, String> params = new HashMap<>();
-
-    public String getGeneratorName() {
-        return generatorName;
-    }
-
-    public void setGeneratorName(String generatorName) {
-        this.generatorName = generatorName;
-    }
 
     public Map<String, String> getParams() {
         return params;
@@ -32,12 +28,20 @@ public class GenerationRequestDTO {
         this.params = params;
     }
 
-    public ParameterValues toParameterValues() {
-        return new SimpleParameterValues(asScalaBuffer(
-                params.entrySet().stream().map(e -> {
-                    return new SimpleParameterValue(e.getKey(), e.getValue());
-                }).collect(Collectors.toList())
-        ));
+    public String getGeneratorName() {
+        return generatorName;
+    }
+
+    public void setGeneratorName(String generatorName) {
+        this.generatorName = generatorName;
+    }
+
+    public List<EditRequestDTO> getEditors() {
+        return editors;
+    }
+
+    public void setEditors(List<EditRequestDTO> editors) {
+        this.editors = editors;
     }
 
     @Override
@@ -45,6 +49,15 @@ public class GenerationRequestDTO {
         return "GenerationRequestDTO{" +
                 "generatorName='" + generatorName + '\'' +
                 ", params=" + params +
+                ", editors=" + editors +
                 '}';
+    }
+
+    public ParameterValues toParameterValues() {
+        return new SimpleParameterValues(asScalaBuffer(
+                params.entrySet().stream().map(e -> {
+                    return new SimpleParameterValue(e.getKey(), e.getValue());
+                }).collect(Collectors.toList())
+        ));
     }
 }

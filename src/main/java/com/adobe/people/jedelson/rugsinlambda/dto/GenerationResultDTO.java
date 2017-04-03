@@ -2,15 +2,13 @@ package com.adobe.people.jedelson.rugsinlambda.dto;
 
 public class GenerationResultDTO extends ValidationResultDTO {
 
-    private final String url;
+    private String url;
 
     public GenerationResultDTO(boolean result) {
         super(result);
-        url = null;
     }
 
-    public GenerationResultDTO(String url) {
-        super(true);
+    public void setUrl(String url) {
         this.url = url;
     }
 
