@@ -5,6 +5,7 @@ import com.atomist.param.SimpleParameterValue;
 import com.atomist.param.SimpleParameterValues;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +38,11 @@ public class GenerationRequestDTO {
     }
 
     public List<EditRequestDTO> getEditors() {
-        return editors;
+        if (editors == null) {
+            return Collections.emptyList();
+        } else {
+            return editors;
+        }
     }
 
     public void setEditors(List<EditRequestDTO> editors) {

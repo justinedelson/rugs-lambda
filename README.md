@@ -25,3 +25,27 @@ You will now have three endpoints set up via API Gateway:
 * `/{stage}/rugs` - describes the Rugs available
 * `/{stage}/{generatorName}/validate` - validate a set of parameters to a generator
 * `/{stage}/{generatorName}/generate` - generate a project. The result from a successful generation will contain a url (which expires in 1 hour) pointing to a ZIP of the generated project.
+
+## Generating a Project
+
+To generate a project, hit the `generate` endpoint passing a JSON body which contains the parameters to the generator:
+ 
+    curl -H "Content-Type: application/json" -X POST -d '{"project_name":"foo","someOtherParam":"bar"}' https://XXXX.execute-api.us-east-1.amazonaws.com/dev/GeneratorName/generate
+    
+The response object will have a `url` key set to a presigned S3 URL (which expires after 1 hour) to a ZIP file of the generated project.
+    
+You can also pass editors to be executed after the generation is done:
+
+    {
+        "project_name" : "foo",
+        "someOtherParam" : "bar",
+        "editors" : [ {
+            "name" : "EditorName",
+            "params" : {
+                "someEditorParam" : "value"
+            }
+        } ]
+    }
+    
+> When using an editor like this, all of the generator parameters are passed to the editor as well. Editor-specific
+parameters take precedence.

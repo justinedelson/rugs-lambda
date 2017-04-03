@@ -1,6 +1,24 @@
-#set( $body = $input.json("$") )
+#set( $body = $input.path("$") )
+#set( $params = {} )
+#foreach($key in $body.keySet())
+    #if($key != 'editors')
+        #set($garbage = $params.put($key, $body.get($key)))
+    #end
+#end
 
 {
 "generatorName" : "$util.escapeJavaScript($input.params('generatorName'))",
-"params" : $body
+"params" : {
+#foreach($key in $params.keySet())
+    #set($value = $params.get($key))
+"$key" : "$util.escapeJavaScript($value).replaceAll("\\'","'")"#if($foreach.hasNext),
+#end
+#end
+}
+
+#set( $editors = $input.json("$.editors") )
+#if($editors != "")
+,
+"editors" : $editors
+#end
 }
